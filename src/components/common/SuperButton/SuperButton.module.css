@@ -1,0 +1,37 @@
+
+.default {
+    background-color: #c9c4c4;
+    border: 1px solid #d5d9d9;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 29px;
+    padding: 0 10px 0 11px;
+    margin: 5px;
+    text-align: center;
+    box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+    user-select: none;
+}
+
+.selected {
+    background-color: aquamarine;
+}
+.default:hover {
+    background-color: #b2aeae;
+}
+.default:disabled {
+    user-select: none;
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.7;
+    text-decoration: line-through;
+}
+
+.red {
+    background: #e58888;
+}
+
+.red:hover {
+    background-color: red;
+    box-shadow: rgba(231, 67, 107, 0.5) 0 2px 5px 0;
+}

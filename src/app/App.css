@@ -1,0 +1,86 @@
+.mainBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.addInput {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.todoListMainBlock {
+    display: flex;
+    max-width: 1024px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.todoListBlock {
+    width: 320px;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #dad0e1;
+    border-radius: 10px;
+    box-shadow: 5px 20px 70px rgba(14, 19, 232, 0.2);
+    margin-bottom: 20px;
+    margin-right: 10px;
+}
+.taskBlock {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 7px;
+}
+.taskItem {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.addItemForm {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
+
+.addItemFormToDoList {
+    font-size: large;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    /*cursor: pointer;*/
+    /*user-select: none;*/
+}
+
+.error {
+    border: red 1px solid;
+}
+
+
+/*.error-message {*/
+/*    color: red;*/
+/*}*/
+
+.active-filter {
+    background-color: aquamarine;
+}
+.checkBoxItem {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+.is-done {
+    text-decoration: line-through;
+    opacity: 0.5;
+}

@@ -1,0 +1,83 @@
+.mainBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 450px;
+    width: 95%;
+    margin: 50px auto;
+    border: 1px solid #dad0e1;
+    border-radius: 15px;
+    box-shadow: 0 1px 15px 0 rgb(51 51 51 / 20%);
+}
+.loginForm {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginForm label {
+    justify-content: center;
+}
+
+
+.loginInfo {
+    flex-direction: column;
+    width: 50%;
+    border-radius: 15px 0 0 15px;
+    border: 0 solid #dad0e1;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+
+}
+.loginInfo img {
+    width: 50%;
+}
+.loginInfo p {
+    margin: 10px 10px;
+}
+
+.superInput {
+    width: 60%;
+    height: 20px;
+    background: #dce1f6;
+    justify-content: center;
+    display: flex;
+    margin: 10px auto;
+    padding: 10px;
+    border: none;
+    font-size: 15px;
+    outline: none;
+    border-radius: 5px;
+}
+.mainBlock span {
+    font-size: larger;
+    font-weight: 500;
+}
+.superButton{
+    width: 60%;
+    height: 40px;
+    display: block;
+    color: #fff;
+    background: #2449c5;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 10px auto 40px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.superButton:hover{
+    background: #3d65ef;
+}
+
+.blockInfoError {
+    height: 70px;
+}
+.errorMessage {
+    color: #ce0f0f;
+    font-weight: bold;
+    text-align: center;
+}
