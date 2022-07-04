@@ -5,7 +5,7 @@ import {ProgressBar} from "../components/common/ProgressBar/ProgressBar";
 import {Snackbar} from "../components/common/Snackbar/Snackbar";
 import {AppRootStateType, useAppSelector} from "./store";
 import {initializeAppTC, RequestStatusType} from "./app-reducer";
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import {Login} from "../components/Login/Login";
 import {Error404} from "../components/common/Error404/Error404";
 import {Spinner} from "../components/common/Spinner/Spinner";
@@ -26,7 +26,7 @@ export const App = () => {
 
     useEffect(() => {
         dispatch(initializeAppTC())
-    }, [])
+    }, [dispatch])
 
     if (!isInitialized) {
         return <Spinner/>
@@ -41,8 +41,7 @@ export const App = () => {
             <Routes>
                 <Route path="/" element={<TodoListsWrapper/>}/>
                 <Route path="/login" element={<Login/>}/>
-                <Route path="/404" element={<Error404/>}/>
-                <Route path="*" element={<Navigate to={"/404"}/>}/>
+                <Route path="*" element={<Error404/>}/>
             </Routes>
         </>
     );
