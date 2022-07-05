@@ -13,7 +13,6 @@ import {AxiosError} from "axios";
 import {handleServerAppError, handleServerNetworkError} from "../../../utils/error-utils";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
-const initialState: TasksStateType = {};
 
 // Thunk
 export const fetchTasksTC = createAsyncThunk(
@@ -68,7 +67,7 @@ export const removeTaskTC = createAsyncThunk(
     }
   })
 
-export const updateTask = createAsyncThunk(
+export const updateTaskTC = createAsyncThunk(
   'tasks/changeTaskStatus', async (
     param: { todoID: string, taskID: string, model: UpdateTaskModelType }, thunkAPI) => {
     const state = thunkAPI.getState() as AppRootStateType;
@@ -101,7 +100,7 @@ export const updateTask = createAsyncThunk(
 
 const slice = createSlice({
   name: "tasks",
-  initialState,
+  initialState: {} as TasksStateType,
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -126,7 +125,7 @@ const slice = createSlice({
         const index = state[action.payload.todoListID].findIndex(el => el.id === action.payload.taskID);
         state[action.payload.todoListID].splice(index, 1);
       })
-      .addCase(updateTask.fulfilled, (state, action) => {
+      .addCase(updateTaskTC.fulfilled, (state, action) => {
           const tasks = state[action.payload.todoID];
           const index = tasks.findIndex(el => el.id === action.payload.taskID);
           if (index !== -1) tasks[index] = {...tasks[index], ...action.payload.model};

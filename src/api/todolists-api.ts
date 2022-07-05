@@ -146,10 +146,11 @@ export type LoginParamsType = {
   rememberMe?: boolean
   captcha?: string
 }
+export type FieldErrorType = { field: string, error: string};
 export type ResponseType<D = {}> = {
   resultCode: number
   messages: string[]
-  fieldsErrors?: string[]
+  fieldsErrors?: FieldErrorType[]
   data: D
 }
 type GetTasksResponse = {

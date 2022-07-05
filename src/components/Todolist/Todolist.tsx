@@ -6,7 +6,7 @@ import {SuperButton} from "../common/SuperButton/SuperButton";
 import {TaskStatuses, TaskType} from "../../api/todolists-api";
 import {changeTodolistFilterAC, removeTodoListTC, TodoListDomainType, updateTodoListTitleTC} from "./todolists-reducer";
 import {useAppDispatch, useAppSelector} from "../../app/store";
-import {addTaskTC, updateTask, fetchTasksTC, removeTaskTC} from "./Task/tasks-reducer";
+import {addTaskTC, updateTaskTC, fetchTasksTC, removeTaskTC} from "./Task/tasks-reducer";
 
 
 type PropsType = {
@@ -49,10 +49,10 @@ export const Todolist: React.FC<PropsType> = React.memo(({todoList}) => {
   }, [dispatch])
   const changeTaskStatusHandler = useCallback((taskID: string, status: TaskStatuses, title: string) => {
     // dispatch(_changeTaskStatusTC(todoList.id, taskID, status, title)); // by me
-    dispatch(updateTask({todoID: todoList.id, taskID, model: {status}}));
+    dispatch(updateTaskTC({todoID: todoList.id, taskID, model: {status}}));
   }, [dispatch])
   const changeTaskTitleHandler = useCallback((taskID: string, newValue: string) => {
-    dispatch(updateTask({taskID, model: {title: newValue}, todoID: todoList.id}));
+    dispatch(updateTaskTC({taskID, model: {title: newValue}, todoID: todoList.id}));
   }, [dispatch])
   const addTaskHandler = useCallback((title: string) => {
     dispatch(addTaskTC({todoID: todoList.id, title}))

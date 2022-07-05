@@ -1,6 +1,6 @@
 import React from 'react';
 import s from "./Login.module.css";
-import {useFormik} from 'formik';
+import {useFormik, FormikHelpers} from 'formik';
 import SuperCheckbox from "../common/SuperCheckbox/SuperCheckbox";
 import {useSelector} from "react-redux";
 import {authLogInTC} from "./login-reducer";
@@ -8,9 +8,9 @@ import {AppRootStateType, useAppDispatch} from "../../app/store";
 import {Navigate} from "react-router-dom";
 
 type FormikErrorType = {
-  email?: string
-  password?: string
-  rememberMe?: boolean
+  email: string
+  password: string
+  rememberMe: boolean
 }
 
 export const Login = () => {
@@ -40,9 +40,15 @@ export const Login = () => {
       password: '',
       rememberMe: false,
     },
-    onSubmit: values => {
-      dispatch(authLogInTC(values))
-      formik.resetForm();
+    onSubmit: async (values, formikHelpers: FormikHelpers<FormikErrorType>) => {
+      const action = await dispatch(authLogInTC(values));
+      if(authLogInTC.rejected.match(action)) {
+        if(action.payload?.fieldsErrors?.length) {
+          const error = action.payload?.fieldsErrors[0];
+          formikHelpers.setFieldError(error.field, error.error);
+        }
+      }
+      // formik.resetForm();
     },
   });
 

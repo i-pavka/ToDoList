@@ -3,7 +3,7 @@ import {v1} from "uuid";
 import {TasksStateType} from "../../../app/App";
 import {TaskPriorities, TaskStatuses} from "../../../api/todolists-api";
 import {
-  addTaskTC, updateTask,
+  addTaskTC, updateTaskTC,
   fetchTasksTC, removeTaskTC,
   tasksReducer,
 } from "../Task/tasks-reducer";
@@ -147,7 +147,7 @@ test('status of specified task should be changed', () => {
     taskID: "2",
     model: {status: TaskStatuses.New}
   }
-  const action = updateTask.fulfilled(testData, "requestId", testData);
+  const action = updateTaskTC.fulfilled(testData, "requestId", testData);
 
   const endState = tasksReducer(startState, action)
 
@@ -160,7 +160,7 @@ test('title of specified task should be changed', () => {
     taskID: "2",
     model: {title: "yogurt"}
   }
-  const action = updateTask.fulfilled(testData, 'requestId', testData);
+  const action = updateTaskTC.fulfilled(testData, 'requestId', testData);
   const endState = tasksReducer(startState, action)
 
   expect(endState["todoListId-1"][1].title).toBe("JS");

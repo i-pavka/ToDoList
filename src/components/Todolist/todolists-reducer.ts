@@ -15,11 +15,11 @@ export enum ResultCodeStatuses {
   captcha = 10,
 }
 
-const initialState: TodoListDomainType[] = []
 
+// Slice
 const slice = createSlice({
   name: 'todoLists',
-  initialState,
+  initialState: [] as TodoListDomainType[],
   reducers: {
     removeTodoListAC: (state, action: PayloadAction<{ todoListID: string }>) => {
       const index = state.findIndex(el => el.id === action.payload.todoListID);
