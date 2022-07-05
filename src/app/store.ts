@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import thunk from "redux-thunk";
 import {appReducer} from "./app-reducer";
-import {TypedUseSelectorHook, useSelector} from "react-redux";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {tasksReducer} from "../components/Todolist/Task/tasks-reducer";
 import {todoListsReducer} from "../components/Todolist/todolists-reducer";
 import {loginReducer} from "../components/Login/login-reducer";
@@ -20,8 +20,10 @@ export const store = configureStore({
   middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunk),
 });
 export type AppRootStateType = ReturnType<typeof rootReducer>
+export type AppDispatchType = typeof store.dispatch;
 
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
+export const useAppDispatch = () => useDispatch<AppDispatchType>();
 
 // @ts-ignore
 window.store = store;

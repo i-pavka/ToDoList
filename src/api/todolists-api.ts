@@ -127,12 +127,12 @@ export type TaskType = {
   addedDate: string
 }
 export type UpdateTaskModelType = {
-  title: string
-  description: string
-  status: TaskStatuses
-  priority: TaskPriorities
-  startDate: string
-  deadline: string
+  title?: string
+  description?: string
+  status?: TaskStatuses
+  priority?: TaskPriorities
+  startDate?: string
+  deadline?: string
 }
 export type TodoListType = {
   id: string

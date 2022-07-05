@@ -2,9 +2,9 @@ import React from 'react';
 import s from "./Login.module.css";
 import {useFormik} from 'formik';
 import SuperCheckbox from "../common/SuperCheckbox/SuperCheckbox";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {authLogInTC} from "./login-reducer";
-import {AppRootStateType} from "../../app/store";
+import {AppRootStateType, useAppDispatch} from "../../app/store";
 import {Navigate} from "react-router-dom";
 
 type FormikErrorType = {
@@ -14,7 +14,7 @@ type FormikErrorType = {
 }
 
 export const Login = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn);
 

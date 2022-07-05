@@ -3,9 +3,9 @@ import {v1} from "uuid";
 import {TasksStateType} from "../../../app/App";
 import {TaskPriorities, TaskStatuses} from "../../../api/todolists-api";
 import {
-  addTaskTC, changeTaskStatusTC,
+  addTaskTC, updateTask,
   fetchTasksTC, removeTaskTC,
-  tasksReducer, updateTaskTitleTC
+  tasksReducer,
 } from "../Task/tasks-reducer";
 
 let startState: TasksStateType = {};
@@ -142,10 +142,12 @@ test('correct task should be added to correct array', () => {
   expect(endState["todoListId-2"][0].status).toBe(TaskStatuses.Completed);
 });
 test('status of specified task should be changed', () => {
-  const action = changeTaskStatusTC.fulfilled(
-    {todoListID: "todoListId-2", taskID: "2", status: TaskStatuses.New},
-    "requestId",
-    {todoID: "todoListId-2", taskID: "2", status: TaskStatuses.New});
+  const testData = {
+    todoID: "todoListId-2",
+    taskID: "2",
+    model: {status: TaskStatuses.New}
+  }
+  const action = updateTask.fulfilled(testData, "requestId", testData);
 
   const endState = tasksReducer(startState, action)
 
@@ -153,11 +155,12 @@ test('status of specified task should be changed', () => {
   expect(endState["todoListId-2"][1].status).toBe(TaskStatuses.New);
 });
 test('title of specified task should be changed', () => {
-  const action = updateTaskTitleTC.fulfilled(
-    {taskID: "2", title: "yogurt", todoListID: "todoListId-2"},
-    'requestId',
-    {taskID: "2", title: "yogurt", todoID: "todoListId-2"});
-
+  const testData = {
+    todoID: "todoListId-2",
+    taskID: "2",
+    model: {title: "yogurt"}
+  }
+  const action = updateTask.fulfilled(testData, 'requestId', testData);
   const endState = tasksReducer(startState, action)
 
   expect(endState["todoListId-1"][1].title).toBe("JS");

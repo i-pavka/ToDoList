@@ -1,5 +1,5 @@
 import {TasksStateType} from "../../../app/App";
-import {taskAPI, TaskStatuses, TodoListType, UpdateTaskModelType} from "../../../api/todolists-api";
+import {taskAPI, TodoListType, UpdateTaskModelType} from "../../../api/todolists-api";
 import {AppRootStateType} from "../../../app/store";
 import {
   addTodolistAC,
@@ -68,29 +68,9 @@ export const removeTaskTC = createAsyncThunk(
     }
   })
 
-export const updateTaskTitleTC = createAsyncThunk(
-  'tasks/updateTaskTitle', async (
-    param: { taskID: string, title: string, todoID: string }, thunkAPI) => {
-    thunkAPI.dispatch(setAppStatusAC({status: 'loading'}));
-    try {
-      const response = await taskAPI.updateTaskTitle(param.todoID, param.taskID, param.title);
-      if (response.resultCode === ResultCodeStatuses.success) {
-        thunkAPI.dispatch(setAppStatusAC({status: 'succeeded'}));
-        return {taskID: param.taskID, title: param.title, todoListID: param.todoID};
-      } else {
-        handleServerAppError(response, thunkAPI.dispatch);
-        return thunkAPI.rejectWithValue(null);
-      }
-    } catch (e) {
-      const error = e as AxiosError;
-      handleServerNetworkError(error.message, thunkAPI.dispatch);
-      return thunkAPI.rejectWithValue(error);
-    }
-  })
-
-export const changeTaskStatusTC = createAsyncThunk(
+export const updateTask = createAsyncThunk(
   'tasks/changeTaskStatus', async (
-    param: { todoID: string, taskID: string, status: TaskStatuses }, thunkAPI) => {
+    param: { todoID: string, taskID: string, model: UpdateTaskModelType }, thunkAPI) => {
     const state = thunkAPI.getState() as AppRootStateType;
     const allAppTask = state.tasks;
     const tasksForClickedTodo = allAppTask[param.todoID]
@@ -99,17 +79,18 @@ export const changeTaskStatusTC = createAsyncThunk(
     })
 
     if (currentTask) {
-      const model: UpdateTaskModelType = {
+      const apiModel: UpdateTaskModelType = {
         title: currentTask.title,
-        status: param.status,
+        status: currentTask.status,
         description: currentTask.description,
         priority: currentTask.priority,
         startDate: currentTask.startDate,
         deadline: currentTask.deadline,
+        ...param.model,
       }
       try {
-        await taskAPI.updateTaskStatus(param.todoID, param.taskID, model);
-        return {todoListID: param.todoID, taskID: param.taskID, status: param.status};
+        await taskAPI.updateTaskStatus(param.todoID, param.taskID, apiModel);
+        return param;
       } catch (e) {
         const error = e as AxiosError;
         handleServerNetworkError(error.message, thunkAPI.dispatch);
@@ -145,15 +126,10 @@ const slice = createSlice({
         const index = state[action.payload.todoListID].findIndex(el => el.id === action.payload.taskID);
         state[action.payload.todoListID].splice(index, 1);
       })
-      .addCase(updateTaskTitleTC.fulfilled, (state, action) => {
-        const tasks = state[action.payload.todoListID];
-        const index = tasks.findIndex(el => el.id === action.payload.taskID);
-        if (index !== -1) tasks[index].title = action.payload.title;
-      })
-      .addCase(changeTaskStatusTC.fulfilled, (state, action) => {
-          const tasks = state[action.payload.todoListID];
+      .addCase(updateTask.fulfilled, (state, action) => {
+          const tasks = state[action.payload.todoID];
           const index = tasks.findIndex(el => el.id === action.payload.taskID);
-          if (index !== -1) tasks[index].status = action.payload.status;
+          if (index !== -1) tasks[index] = {...tasks[index], ...action.payload.model};
       })
   }
 })
