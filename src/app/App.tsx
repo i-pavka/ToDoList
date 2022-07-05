@@ -14,37 +14,37 @@ import {Header} from "../components/Header/Header";
 
 
 export type TasksStateType = {
-    [key: string]: TaskType[]
+  [key: string]: TaskType[]
 }
 
 export const App = () => {
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const status = useAppSelector<RequestStatusType>(state => state.app.status);
-    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized);
+  const status = useAppSelector<RequestStatusType>(state => state.app.status);
+  const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized);
 
-    useEffect(() => {
-        dispatch(initializeAppTC())
-    }, [dispatch])
+  useEffect(() => {
+    dispatch(initializeAppTC())
+  }, [dispatch])
 
-    if (!isInitialized) {
-        return <Spinner/>
-    }
+  if (!isInitialized) {
+    return <Spinner/>
+  }
 
-    return (<>
-            <Header/>
-            <div style={{height: '5px'}}>
-                {status === 'loading' && <ProgressBar/>}
-            </div>
-            <Snackbar/>
-            <Routes>
-                <Route path="/" element={<TodoListsWrapper/>}/>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="*" element={<Error404/>}/>
-            </Routes>
-        </>
-    );
+  return (<>
+      <Header/>
+      <div style={{height: '5px'}}>
+        {status === 'loading' && <ProgressBar/>}
+      </div>
+      <Snackbar/>
+      <Routes>
+        <Route path="/" element={<TodoListsWrapper/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="*" element={<Error404/>}/>
+      </Routes>
+    </>
+  );
 }
 
 export default App;

@@ -10,46 +10,46 @@ export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type InitialStateType = typeof initialState
 
 const initialState = {
-    status: 'idle' as RequestStatusType,
-    error: null as string | null,
-    isInitialized: false
+  status: 'idle' as RequestStatusType,
+  error: null as string | null,
+  isInitialized: false
 }
 
 const slice = createSlice({
-    name: 'app',
-    initialState: initialState,
-    reducers: {
-        setAppStatusAC: (state, action: PayloadAction<{status: RequestStatusType}>) => {
-            state.status = action.payload.status
-        },
-        setAppErrorAC: (state, action: PayloadAction<{error: string | null}>) => {
-            state.error = action.payload.error
-        },
-        setAppInitializedAC: (state, action: PayloadAction<{isInitialized: boolean}>) => {
-            state.isInitialized =  action.payload.isInitialized
-        }
+  name: 'app',
+  initialState: initialState,
+  reducers: {
+    setAppStatusAC: (state, action: PayloadAction<{ status: RequestStatusType }>) => {
+      state.status = action.payload.status
+    },
+    setAppErrorAC: (state, action: PayloadAction<{ error: string | null }>) => {
+      state.error = action.payload.error
+    },
+    setAppInitializedAC: (state, action: PayloadAction<{ isInitialized: boolean }>) => {
+      state.isInitialized = action.payload.isInitialized
     }
+  }
 })
 
 export const appReducer = slice.reducer;
 export const {
-    setAppStatusAC,
-    setAppErrorAC,
-    setAppInitializedAC
+  setAppStatusAC,
+  setAppErrorAC,
+  setAppInitializedAC
 } = slice.actions;
 
 
 // Thunk
 export const initializeAppTC = () => (dispatch: Dispatch) => {
-    dispatch(setAppStatusAC({status: 'loading'}));
-    authAPI.authMe().then(res => {
-        if (res.resultCode === ResultCodeStatuses.success) {
-            dispatch(setIsLoggedInAC({value: true}));
-            dispatch(setAppStatusAC({status: 'succeeded'}));
-        } else {
-            handleServerAppError(res, dispatch);
-        }
-    }).catch((error) => {
-        handleServerNetworkError(error, dispatch)
-    }).finally(() => dispatch(setAppInitializedAC({isInitialized: true})));
+  dispatch(setAppStatusAC({status: 'loading'}));
+  authAPI.authMe().then(res => {
+    if (res.resultCode === ResultCodeStatuses.success) {
+      dispatch(setIsLoggedInAC({value: true}));
+      dispatch(setAppStatusAC({status: 'succeeded'}));
+    } else {
+      handleServerAppError(res, dispatch);
+    }
+  }).catch((error) => {
+    handleServerNetworkError(error, dispatch)
+  }).finally(() => dispatch(setAppInitializedAC({isInitialized: true})));
 }

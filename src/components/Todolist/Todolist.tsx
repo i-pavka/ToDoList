@@ -21,14 +21,14 @@ export const Todolist: React.FC<PropsType> = React.memo(({todoList}) => {
 
   useEffect(() => {
     dispatch(fetchTasksTC(todoList.id))
-  }, [])
+  }, [dispatch, todoList.id])
 
   const removeTodolist = useCallback(() => {
     dispatch(removeTodoListTC(todoList.id));
-  }, [dispatch])
+  }, [dispatch, todoList.id])
   const changeTodolistTitle = useCallback((title: string) => {
     dispatch(updateTodoListTitleTC(todoList.id, title));
-  }, [dispatch])
+  }, [dispatch, todoList.id])
 
   const onAllClickHandler = useCallback(
     () => dispatch(changeTodolistFilterAC({id: todoList.id, filter: "all"})), [dispatch, todoList.id]);
@@ -46,17 +46,17 @@ export const Todolist: React.FC<PropsType> = React.memo(({todoList}) => {
   }
 
   const removeTaskHandler = useCallback((taskID: string) => {
-    dispatch(removeTaskTC(taskID, todoList.id))
+    dispatch(removeTaskTC({taskID, todoID: todoList.id}))
   }, [dispatch])
   const changeTaskStatusHandler = useCallback((taskID: string, status: TaskStatuses, title: string) => {
     // dispatch(_changeTaskStatusTC(todoList.id, taskID, status, title)); // by me
-    dispatch(changeTaskStatusTC(todoList.id, taskID, status));
+    dispatch(changeTaskStatusTC({todoID: todoList.id, taskID, status}));
   }, [dispatch])
   const changeTaskTitleHandler = useCallback((taskID: string, newValue: string) => {
-    dispatch(updateTaskTitleTC(taskID, newValue, todoList.id));
+    dispatch(updateTaskTitleTC({taskID, title: newValue, todoID: todoList.id}));
   }, [dispatch])
   const addTaskHandler = useCallback((title: string) => {
-    dispatch(addTaskTC(todoList.id, title))
+    dispatch(addTaskTC({todoID: todoList.id, title}))
   }, [dispatch])
 
   return <div className={"todoListBlock"}>
