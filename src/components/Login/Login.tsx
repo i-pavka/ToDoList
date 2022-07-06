@@ -1,10 +1,9 @@
 import React from 'react';
 import s from "./Login.module.css";
-import {useFormik, FormikHelpers} from 'formik';
-import SuperCheckbox from "../common/SuperCheckbox/SuperCheckbox";
-import {useSelector} from "react-redux";
+import {FormikHelpers, useFormik} from 'formik';
+import {Checkbox} from "../common/SuperCheckbox/Checkbox";
 import {authLogInTC} from "./login-reducer";
-import {AppRootStateType, useAppDispatch} from "../../app/store";
+import {useAppDispatch, useAppSelector} from "../../app/store";
 import {Navigate} from "react-router-dom";
 
 type FormikErrorType = {
@@ -16,7 +15,7 @@ type FormikErrorType = {
 export const Login = () => {
   const dispatch = useAppDispatch();
 
-  const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn);
+  const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
 
   const formik = useFormik({
     validate: (values) => {
@@ -42,8 +41,8 @@ export const Login = () => {
     },
     onSubmit: async (values, formikHelpers: FormikHelpers<FormikErrorType>) => {
       const action = await dispatch(authLogInTC(values));
-      if(authLogInTC.rejected.match(action)) {
-        if(action.payload?.fieldsErrors?.length) {
+      if (authLogInTC.rejected.match(action)) {
+        if (action.payload?.fieldsErrors?.length) {
           const error = action.payload?.fieldsErrors[0];
           formikHelpers.setFieldError(error.field, error.error);
         }
@@ -58,7 +57,16 @@ export const Login = () => {
 
   return (
     <div className={s.mainBlock}>
-      <h1>Login Form</h1>
+      <div className={s.infoBlock}>
+        <h1>Mongo Network</h1>
+        <div>To log in get registered here
+          Or use common test account credentials:
+        </div>
+        <div className={s.loginData}>
+          <p>Email: free@samuraijs.com</p>
+          <p>Password: free</p>
+        </div>
+      </div>
       <form className={s.loginForm} onSubmit={formik.handleSubmit}>
         <div className={s.blockInfoError}>
           <input
@@ -80,10 +88,10 @@ export const Login = () => {
             <div className={s.errorMessage}>{formik.errors.password}</div>}
         </div>
 
-        <SuperCheckbox  {...formik.getFieldProps("rememberMe")}
-                        checked={formik.values.rememberMe}>
+        <Checkbox  {...formik.getFieldProps("rememberMe")}
+                   checked={formik.values.rememberMe}>
           remember me
-        </SuperCheckbox>
+        </Checkbox>
 
         <button className={s.superButton} type="submit">LOGIN</button>
       </form>

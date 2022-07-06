@@ -18,15 +18,12 @@ const initialState = {
 // Thunk
 export const initializeAppTC = createAsyncThunk(
   'app/initializeApp', async (param, {dispatch, rejectWithValue,}) => {
-    dispatch(setAppStatusAC({status: 'loading'}));
     try {
       const response = await authAPI.authMe();
       if (response.resultCode === ResultCodeStatuses.success) {
-        dispatch(setAppStatusAC({status: 'succeeded'}));
         dispatch(setIsLoggedInAC({isLoggedIn: true}));
       } else {
         handleServerAppError(response, dispatch);
-        return rejectWithValue({});
       }
     } catch (e) {
       const error = e as AxiosError;

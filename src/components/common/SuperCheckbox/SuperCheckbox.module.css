@@ -1,26 +1,27 @@
 .labelMain {
-    display: flex;
-    align-items: center;
-    user-select: none;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
 }
+
 .checkbox {
-    width: 30px;
-    height: 30px;
-    margin-right: 5px;
-    -webkit-appearance: none;
-    -moz-animation: none;
-    appearance: none;
-    background-image: url("./img/off.svg");
-    cursor: pointer;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  -webkit-appearance: none;
+  -moz-animation: none;
+  appearance: none;
+  background-image: url("./img/off.svg");
+  cursor: pointer;
 }
 
 .checkbox:checked {
-    cursor: pointer;
-    -webkit-appearance: none;
-    -moz-animation: none;
-    appearance: none;
-    background-image: url("./img/on.svg");
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-animation: none;
+  appearance: none;
+  background-image: url("./img/on.svg");
 }
 
 /*.checkbox:focus {*/

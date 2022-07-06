@@ -48,7 +48,6 @@ export const Todolist: React.FC<PropsType> = React.memo(({todoList}) => {
     dispatch(removeTaskTC({taskID, todoID: todoList.id}))
   }, [dispatch])
   const changeTaskStatusHandler = useCallback((taskID: string, status: TaskStatuses, title: string) => {
-    // dispatch(_changeTaskStatusTC(todoList.id, taskID, status, title)); // by me
     dispatch(updateTaskTC({todoID: todoList.id, taskID, model: {status}}));
   }, [dispatch])
   const changeTaskTitleHandler = useCallback((taskID: string, newValue: string) => {

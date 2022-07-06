@@ -1,5 +1,6 @@
 {
   "name": "less-8",
+  "homepage": "https://i-pavka.github.io/ToDoList",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,7 +27,6 @@
     "uuid": "^8.3.2",
     "web-vitals": "^2.1.0"
   },
-  "homepage": "https://i-pavka.github.io/ToDoList",
   "scripts": {
     "start": "set \"BROWSER=none\" && start chrome localhost:3000 && react-scripts start",
     "startApp": "yarn start",

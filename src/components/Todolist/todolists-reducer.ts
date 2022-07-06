@@ -5,7 +5,6 @@ import {AxiosError} from "axios";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-
 export const todoListId1 = v1();
 export const todoListId2 = v1();
 
