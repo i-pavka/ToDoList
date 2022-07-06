@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {InputText} from "../SuperInput/InputText";
+import {InputText} from "../InputText/InputText";
 
 type EditableSpanPropsType = {
   value: string
@@ -9,8 +9,6 @@ type EditableSpanPropsType = {
 
 export const EditableSpan: React.FC<EditableSpanPropsType> = React.memo((
   {value, onChange, hidden}) => {
-// ToDo: как то обозначить что его можно изменить по клику, например рисунок рисунок карандашика
-  // console.log('EditableSpan');
 
   const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState(value);

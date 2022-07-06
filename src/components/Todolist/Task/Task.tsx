@@ -1,8 +1,8 @@
 import React, {ChangeEvent, useCallback, useState} from 'react';
 import {TaskStatuses, TaskType} from "../../../api/todolists-api";
-import {Checkbox} from "../../common/SuperCheckbox/Checkbox";
+import {Checkbox} from "../../common/Checkbox/Checkbox";
 import {EditableSpan} from "../../common/EditableSpan/EditableSpan";
-import {SuperButton} from "../../common/SuperButton/SuperButton";
+import {Button} from "../../common/Button/Button";
 import {RequestStatusType} from "../../../app/app-reducer";
 
 
@@ -44,7 +44,7 @@ export const Task: React.FC<TaskPropsType> = React.memo((
                       hidden={setHidden}
         />
       </div>
-      {hidden && <SuperButton onClick={onClickHandler} disabled={entityStatus === 'loading'} red>del</SuperButton>}
+      {hidden && <Button onClick={onClickHandler} disabled={entityStatus === 'loading'} red>del</Button>}
     </div>
   );
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import s from "./Login.module.css";
 import {FormikHelpers, useFormik} from 'formik';
-import {Checkbox} from "../common/SuperCheckbox/Checkbox";
+import {Checkbox} from "../common/Checkbox/Checkbox";
 import {authLogInTC} from "./login-reducer";
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {Navigate} from "react-router-dom";
@@ -58,9 +58,13 @@ export const Login = () => {
   return (
     <div className={s.mainBlock}>
       <div className={s.infoBlock}>
-        <h1>Mongo Network</h1>
-        <div>To log in get registered here
-          Or use common test account credentials:
+        <h1>Login Form</h1>
+        <div>
+          <p>
+            To log in get registered:
+            <a href="https://social-network.samuraijs.com/signUp">here</a>
+          </p>
+          <p>Or use common test account credentials:</p>
         </div>
         <div className={s.loginData}>
           <p>Email: free@samuraijs.com</p>

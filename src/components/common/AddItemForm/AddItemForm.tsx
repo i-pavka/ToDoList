@@ -1,6 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {InputText} from "../SuperInput/InputText";
-import {SuperButton} from "../SuperButton/SuperButton";
+import {InputText} from "../InputText/InputText";
+import {Button} from "../Button/Button";
 
 type AddItemFormPropsType = {
   addItem: (title: string) => void
@@ -31,22 +31,16 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo((
       addItemHandler();
     }
   }
-  const mouseOverHandler = () => {
 
-  }
   return <div className={"addItemForm"}>
     <InputText value={title}
                placeholder={placeholder}
                onChange={onChangeHandler}
                onKeyPress={onKeyPressHandler}
                error={error}
-               disabled={disabled}
-    >
-
+               disabled={disabled}>
     </InputText>
-    {/* ToDo: Возможно ли убрать перерисовку кнопки в момент набора текста в инпуте? */}
-    <SuperButton onMouseOver={mouseOverHandler}
-                 disabled={disabled}
-                 onClick={addItemHandler}>add</SuperButton>
+    <Button disabled={disabled}
+            onClick={addItemHandler}>add</Button>
   </div>
 })

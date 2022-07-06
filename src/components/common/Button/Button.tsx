@@ -1,14 +1,14 @@
 import React, {ButtonHTMLAttributes, DetailedHTMLProps} from 'react'
-import s from './SuperButton.module.css'
+import s from './Button.module.css'
 
 type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
-type SuperButtonPropsType = DefaultButtonPropsType & {
+type ButtonPropsType = DefaultButtonPropsType & {
   red?: boolean
   selected?: boolean
 }
 
-export const SuperButton: React.FC<SuperButtonPropsType> = React.memo((
+export const Button: React.FC<ButtonPropsType> = React.memo((
   {
     red, className, selected,
     ...restProps

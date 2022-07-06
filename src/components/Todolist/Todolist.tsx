@@ -2,7 +2,7 @@ import React, {useCallback, useEffect} from 'react';
 import {AddItemForm} from '../common/AddItemForm/AddItemForm';
 import {EditableSpan} from '../common/EditableSpan/EditableSpan';
 import {Task} from "./Task/Task";
-import {SuperButton} from "../common/SuperButton/SuperButton";
+import {Button} from "../common/Button/Button";
 import {TaskStatuses, TaskType} from "../../api/todolists-api";
 import {changeTodolistFilterAC, removeTodoListTC, TodoListDomainType, updateTodoListTitleTC} from "./todolists-reducer";
 import {useAppDispatch, useAppSelector} from "../../app/store";
@@ -61,7 +61,7 @@ export const Todolist: React.FC<PropsType> = React.memo(({todoList}) => {
     <div className={"todoListBlock"}>
       <div className={"addItemFormToDoList"}>
         <EditableSpan value={todoList.title} onChange={changeTodolistTitle}/>
-        <SuperButton onClick={removeTodolist} disabled={todoList.entityStatus === 'loading'} red>x</SuperButton>
+        <Button onClick={removeTodolist} disabled={todoList.entityStatus === 'loading'} red>x</Button>
       </div>
       <AddItemForm placeholder={'...add new Task'} addItem={addTaskHandler}
                    disabled={todoList.entityStatus === 'loading'}/>
@@ -79,15 +79,15 @@ export const Todolist: React.FC<PropsType> = React.memo(({todoList}) => {
         }
       </div>
       <div>
-        <SuperButton selected={todoList.filter === 'all'}
+        <Button selected={todoList.filter === 'all'}
                      onClick={onAllClickHandler}>All
-        </SuperButton>
-        <SuperButton selected={todoList.filter === 'active'}
+        </Button>
+        <Button selected={todoList.filter === 'active'}
                      onClick={onActiveClickHandler}>Active
-        </SuperButton>
-        <SuperButton selected={todoList.filter === 'completed'}
+        </Button>
+        <Button selected={todoList.filter === 'completed'}
                      onClick={onCompletedClickHandler}>Completed
-        </SuperButton>
+        </Button>
       </div>
     </div>
   )

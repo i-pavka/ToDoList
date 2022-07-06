@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Header.module.css'
-import {SuperButton} from "../common/SuperButton/SuperButton";
+import {Button} from "../common/Button/Button";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../app/store";
 import {logoutTC} from "../Login/login-reducer";
@@ -17,9 +17,9 @@ export const Header = () => {
   return (<header className={s.mainBlock}>
       <div className={s.header}>
         <h3>ToDo List</h3>
-        {isLoggedIn && <SuperButton onClick={logoutHandler} className={s.logoutButton}>
+        {isLoggedIn && <Button onClick={logoutHandler} className={s.logoutButton}>
           LogOut
-        </SuperButton>}
+        </Button>}
       </div>
     </header>
   );
