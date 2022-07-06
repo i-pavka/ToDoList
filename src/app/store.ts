@@ -20,6 +20,7 @@ export const store = configureStore({
   middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunk),
 });
 export type AppRootStateType = ReturnType<typeof rootReducer>
+// export type AppRootStateType = ReturnType<typeof store.getState> // вариант из доки Redux
 export type AppDispatchType = typeof store.dispatch;
 
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector

@@ -26,7 +26,7 @@ export const Todolist: React.FC<PropsType> = React.memo(({todoList}) => {
     dispatch(removeTodoListTC(todoList.id));
   }, [dispatch, todoList.id])
   const changeTodolistTitle = useCallback((title: string) => {
-    dispatch(updateTodoListTitleTC(todoList.id, title));
+    dispatch(updateTodoListTitleTC({todoListID: todoList.id, title}));
   }, [dispatch, todoList.id])
 
   const onAllClickHandler = useCallback(

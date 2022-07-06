@@ -1,9 +1,9 @@
 import {v1} from 'uuid';
 import {
-  addTodolistAC, changeTodolistFilterAC, changeTodoListTitleAC, FilterValuesType,
-  removeTodoListAC,
-  setTodosAC, TodoListDomainType,
-  todoListsReducer
+  addTodoListTC,
+  changeTodolistFilterAC, fetchTodosTC, FilterValuesType, removeTodoListTC,
+  TodoListDomainType,
+  todoListsReducer, updateTodoListTitleTC
 } from "../todolists-reducer";
 
 let todoListId1: string;
@@ -26,11 +26,12 @@ beforeEach(() => {
 
 })
 
-test('todolist should be ser to the state', () => {
-  const action = setTodosAC({todos: startState})
+test('todolist should be set to the state', () => {
+  const payload = {todos: startState};
+  const action = fetchTodosTC.fulfilled(payload, 'requestId');
 
-  const endState = todoListsReducer([], action)
-  console.log(endState)
+  const endState = todoListsReducer([], action);
+
   expect(endState.length).toBe(2);
   expect(endState[1].title).toBe('What to buy');
 });
@@ -49,8 +50,11 @@ test('correct todolist should be removed', () => {
     }
   ]
 
-  const endState = todoListsReducer(startState, removeTodoListAC(
-    {todoListID: todoListId1}))
+  const endState = todoListsReducer(startState, removeTodoListTC.fulfilled(
+    {todoListID: todoListId1},
+    'requestId',
+    todoListId1
+  ))
 
   expect(endState.length).toBe(1);
   expect(endState[0].id).toBe(todoListId2);
@@ -73,8 +77,10 @@ test('correct todolist should be added', () => {
     }
   ]
 
-  const endState = todoListsReducer(startState, addTodolistAC(
-    {item: {id: todolistId3, title: newTodoListTitle, addedDate: '', order: 0,}}))
+  const endState = todoListsReducer(startState, addTodoListTC.fulfilled(
+    {item: {id: todolistId3, title: newTodoListTitle, addedDate: '', order: 0,}},
+    'requestId', newTodoListTitle
+  ))
 
   expect(endState.length).toBe(3);
   expect(endState[0].title).toBe(newTodoListTitle);
@@ -91,7 +97,11 @@ test('correct todolist should change its name', () => {
   ]
 
   const endState = todoListsReducer(
-    startState, changeTodoListTitleAC({id: todolistId2, title: newTodolistTitle})
+    startState, updateTodoListTitleTC.fulfilled(
+      {id: todolistId2, title: newTodolistTitle},
+      'requestId',
+      {todoListID: todolistId2, title: newTodolistTitle}
+      )
   );
 
   expect(endState[0].title).toBe("What to learn");
